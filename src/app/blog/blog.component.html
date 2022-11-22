@@ -1,0 +1,56 @@
+<mat-card style="background-color:#3f51b5;">
+  <h1>Blog App    <button (click)="logOut()" mat-flat-button color="warn">Log Out</button> </h1>
+</mat-card>
+<mat-card>
+  <h2>neuer Eintrag</h2>
+  <mat-card-header>
+    <mat-card-subtitle>
+      <mat-form-field class="example-full-width">
+        <div>
+          <input [formControl]="newPostFormTitle" matInput placeholder="Title">
+        </div>
+       </mat-form-field>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field style="margin-left:20px" class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea [formControl]="newPostFormText" matInput placeholder="New Blog"></textarea>
+    </mat-form-field>
+    <button (click)="addNewPost()" mat-button color="accent">Enter</button>
+  </mat-card-content>
+</mat-card>
+
+<div *ngFor="let post of posts">
+  <mat-card class="abstandPost" >
+    <mat-card-header>
+      <mat-card-title>{{post.title}}</mat-card-title>
+      <mat-card-subtitle>{{post.author}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content><p>{{post.text}}</p></mat-card-content>
+  </mat-card>
+
+  <mat-expansion-panel hideToggle (opened)="openComments(post.id)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <button mat-stroked-button color="accent">Kommentare </button>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let comment of commentsPost">
+      <mat-card class="abstandComment">
+        <mat-card-subtitle>{{comment.author}}</mat-card-subtitle>
+        <mat-card-content >{{comment.text}}</mat-card-content>
+      </mat-card>
+    </div>
+  </mat-expansion-panel>
+  <mat-card style="padding:0px">
+    <mat-card-content>
+      <mat-form-field style="margin-left:30px" class="example-full-width">
+        <div>
+          <input [formControl]="newCommentForm"  matInput placeholder="Comment">
+        </div>
+      </mat-form-field>
+      <button (click)="addComment(post.id)" mat-button color="accent">Enter</button>
+    </mat-card-content>
+  </mat-card>
+</div>
