@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {Post} from "../models/post.model";
+import {User} from "../models/user.model";
 
 @Component({
   selector: 'app-login',
@@ -24,9 +26,10 @@ export class LoginComponent implements OnInit {
   submitForm() {
       this.authService.login(this.username.value, this.password.value).subscribe((result) => {
         if(result != null){
+          console.log(result.token);
           this.responseData = result;
-          localStorage.setItem('token',this.responseData);
-          this.route.navigate(['blog']).then(r => console.log('test'));
+          localStorage.setItem('token',this.responseData.token);
+          this.route.navigate(['blog']);
         }
       });
   }

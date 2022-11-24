@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Post} from "../models/post.model";
-import {Observable, of} from "rxjs";
+import {count, Observable, of} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -16,7 +16,12 @@ export class PostService {
   }
 
   newPost(post: Post): Observable<Post> {
-    console.log(post);
     return this.http.post<Post>('http://localhost:3000/posts',post);
   }
+
+  deletePost(idPost: number): Observable<Post> {
+    return this.http.delete<Post>('http://localhost:3000/posts/' + idPost);
+  }
+
+
 }
